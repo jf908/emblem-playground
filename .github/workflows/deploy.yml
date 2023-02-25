@@ -20,16 +20,18 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        uses: pnpm/action-setup@v2
+        with:
+          run_install: true
 
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
       - name: Build wasm
-        run: npm run wasm
+        run: pnpm wasm
 
       - name: Build project
-        run: npm run build
+        run: pnpm build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
