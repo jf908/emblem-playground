@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <link rel="icon" href="./favicon.png" /> -->
+		<meta name="viewport" content="width=device-width" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				font-family: Jost, sans-serif;
+				margin: 0;
+				background: white;
+				color: black;
+			}
+			@media (prefers-color-scheme: dark) {
+				body {
+					background: black;
+					color: white;
+				}
+			}
+		</style>
+		<meta http-equiv="content-security-policy" content="">
+		<link href="./_app/immutable/assets/_page.c53f2130.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/editor.911c6360.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.fb3870b2.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.ea5d5942.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.b512a1c1.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.8cd51e96.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.311987c9.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/layout.svelte.f34e87c5.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_layout.ts.984db11e.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/_layout.da46b06b.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_page.svelte.82d9d65e.js"><title>Emblem Playground</title><!-- HEAD_svelte-1w3bpid_START --><!-- HEAD_svelte-1w3bpid_END -->
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">
+
+
+
+
+<div class="flex flex-col h-100vh"><nav class="flex items-baseline p-2 gap-4 text-#c8c9db bg-#14191F select-none"><h1 class="m-0 text-5">Emblem Playground</h1>
+		<a class="text-inherit no-underline hover:text-#ffb454" href="https://kcza.net/emblem/introduction.html">Docs</a>
+		<div class="flex items-center gap-1 ml-auto"><input id="show-debug" type="checkbox">
+			<label for="show-debug">Show debug</label></div></nav>
+	<div class="flex h-full"><div class="monaco-container flex-1 overflow-auto"></div>
+		<article class="flex-1 overflow-auto markdown-body p-3" id="output"><!-- HTML_TAG_START --><!-- HTML_TAG_END --></article>
+		</div></div>
+
+
+			
+			<script>
+				{
+					__sveltekit_1l7klu = {
+						env: {},
+						assets: new URL(".", location.href).pathname.replace(/^\/$/, ''),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.fb3870b2.js"),
+						import("./_app/immutable/entry/app.311987c9.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_1l7klu.element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
