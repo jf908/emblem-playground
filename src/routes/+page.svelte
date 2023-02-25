@@ -51,6 +51,10 @@
 			class="text-inherit no-underline hover:text-#ffb454"
 			href="https://kcza.net/emblem/introduction.html">Docs</a
 		>
+		<a
+			class="text-inherit no-underline hover:text-#ffb454"
+			href="https://github.com/jf908/emblem-playground">Source</a
+		>
 		<div class="flex items-center gap-1 ml-auto">
 			<input id="show-debug" type="checkbox" bind:checked={showDebug} />
 			<label for="show-debug">Show debug</label>

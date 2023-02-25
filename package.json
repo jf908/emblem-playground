@@ -1,7 +1,13 @@
 {
 	"name": "emblem-playground",
+	"description": "A playground for Emblem",
 	"version": "0.0.1",
+	"license": "GPL-3.0",
 	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jf908/emblem-playground"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
