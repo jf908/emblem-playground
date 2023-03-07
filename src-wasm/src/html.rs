@@ -1,4 +1,4 @@
-use emblem::ast::{
+use emblem_core::ast::{
     parsed::{Content, Sugar},
     Dash, Par, ParPart,
 };
@@ -17,13 +17,13 @@ impl HtmlBuilder {
     pub fn build_parpart(&mut self, par: &Par<ParPart<Content>>) {
         for y in par.parts.iter() {
             match y {
-                crate::ast::ParPart::Line(cs) => {
+                ParPart::Line(cs) => {
                     for c in cs {
                         self.build(&c);
                         self.content.push_str("\n");
                     }
                 }
-                crate::ast::ParPart::Command(c) => {
+                ParPart::Command(c) => {
                     self.build(&c);
                 }
             }
