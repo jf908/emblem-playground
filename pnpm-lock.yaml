@@ -13,7 +13,6 @@ specifiers:
   typescript: ^4.9.3
   unocss: ^0.50.1
   vite: ^4.0.0
-  vite-plugin-monaco-editor: ^1.1.0
 
 devDependencies:
   '@sveltejs/adapter-static': 2.0.1_@sveltejs+kit@1.8.4
@@ -28,7 +27,6 @@ devDependencies:
   typescript: 4.9.5
   unocss: 0.50.1_vite@4.1.4
   vite: 4.1.4
-  vite-plugin-monaco-editor: 1.1.0_monaco-editor@0.36.0
 
 packages:
 
@@ -1698,14 +1696,6 @@ packages:
       - rollup
       - supports-color
       - vite
-    dev: true
-
-  /vite-plugin-monaco-editor/1.1.0_monaco-editor@0.36.0:
-    resolution: {integrity: sha512-IvtUqZotrRoVqwT0PBBDIZPNraya3BxN/bfcNfnxZ5rkJiGcNtO5eAOWWSgT7zullIAEqQwxMU83yL9J5k7gww==}
-    peerDependencies:
-      monaco-editor: '>=0.33.0'
-    dependencies:
-      monaco-editor: 0.36.0
     dev: true
 
   /vite/4.1.4:
