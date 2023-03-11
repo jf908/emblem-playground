@@ -141,7 +141,7 @@ dependencies = [
 [[package]]
 name = "emblem_core"
 version = "0.0.0"
-source = "git+https://github.com/TheSignPainter98/emblem?branch=refactor/project-structure#e28a5e57d450234d3ce222516724c1468e52cb88"
+source = "git+https://github.com/TheSignPainter98/emblem#26f2ee9a278f5d1188bc761138ce86a6ac7108c6"
 dependencies = [
  "annotate-snippets",
  "derive-new",
@@ -151,6 +151,7 @@ dependencies = [
  "parking_lot",
  "regex",
  "typed-arena",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -253,9 +254,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.139"
+version = "0.2.140"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "201de327520df007757c1f0adce6e827fe8562fbc28bfd9c15571c66ca1f5f79"
+checksum = "99227334921fae1a979cf0bfdfcc6b3e5ce376ef57e16fb6fb3ea2ed6095f80c"
 
 [[package]]
 name = "lock_api"
@@ -429,9 +430,9 @@ checksum = "a507befe795404456341dfab10cef66ead4c041f62b8b11bbb92bffe5d0953e0"
 
 [[package]]
 name = "string_cache"
-version = "0.8.6"
+version = "0.8.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d69e88b23f23030bf4d0e9ca7b07434f70e1c1f4d3ca7e93ce958b373654d9f"
+checksum = "f91138e76242f575eb1d3b38b4f1362f10d3a43f47d182a5b359af488a02293b"
 dependencies = [
  "new_debug_unreachable",
  "once_cell",
