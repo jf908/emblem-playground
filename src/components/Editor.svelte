@@ -6,7 +6,6 @@
 	import { onMount } from 'svelte';
 	import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 	import type monaco from 'monaco-editor';
-	import { MarkerSeverity } from 'monaco-editor';
 
 	export let value: string;
 	export let theme: string;
@@ -34,7 +33,7 @@
 			model,
 			'emblem',
 			errors.map((err) => ({
-				severity: MarkerSeverity.Error,
+				severity: monaco.MarkerSeverity.Error,
 				startLineNumber: err.location[0],
 				startColumn: err.location[1],
 				endLineNumber: err.location[2],
