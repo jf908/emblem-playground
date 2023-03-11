@@ -1,5 +1,7 @@
 # Emblem Playground
 
+A playground for [Emblem](https://github.com/TheSignPainter98/emblem).
+
 ## Setup
 
 - Install node.js
@@ -8,5 +10,6 @@
 
 ## Dev
 
-- Build with `npm run wasm`
+- Build compiler with `npm run wasm`
 - Open local web server with `npm run dev`
+- Build site with `npm run build`
