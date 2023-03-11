@@ -28,18 +28,18 @@
 			}
 		</style>
 		<meta http-equiv="content-security-policy" content="">
-		<link href="./_app/immutable/assets/_page.c53f2130.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/_page.6c764e94.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/editor.911c6360.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.9fb7fc28.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.ea5d5942.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.0bbbc5d8.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/index.8cd51e96.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.901c7b8f.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.e8a62388.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.45ad9d22.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.88d66a4a.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.b4a1b10e.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.d195460e.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.41c905a7.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/layout.svelte.f34e87c5.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/layout.svelte.59a79d88.js">
 		<link rel="modulepreload" href="./_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_page.svelte.769f3cd9.js"><title>Emblem Playground</title><!-- HEAD_svelte-1w3bpid_START --><!-- HEAD_svelte-1w3bpid_END -->
+		<link rel="modulepreload" href="./_app/immutable/entry/_page.svelte.d304b3e1.js"><title>Emblem Playground</title><!-- HEAD_svelte-1w3bpid_START --><!-- HEAD_svelte-1w3bpid_END -->
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -47,12 +47,14 @@
 
 
 
-<div class="flex flex-col h-100vh"><nav class="flex items-baseline p-2 gap-4 text-#c8c9db bg-#14191F select-none"><h1 class="m-0 text-5">Emblem Playground</h1>
-		<a class="text-inherit no-underline hover:text-#ffb454" href="https://kcza.net/emblem/introduction.html">Docs</a>
-		<a class="text-inherit no-underline hover:text-#ffb454" href="https://github.com/jf908/emblem-playground">Source</a>
-		<div class="flex items-center gap-1 ml-auto"><input id="show-debug" type="checkbox">
-			<label for="show-debug">Show debug</label></div></nav>
-	<div class="flex h-full"><div class="monaco-container flex-1 overflow-auto"></div>
+<div class="flex flex-col h-100vh"><nav class="flex items-center h-45px gap-4 text-fg-default bg-bg-default select-none"><h1 class="m-0 pl-3 text-5">Emblem Playground</h1>
+	<a class="text-inherit no-underline hover:text-accent" href="https://github.com/jf908/emblem-playground"><span class="text-5 i-ph-github-logo"></span></a>
+	<a class="text-inherit no-underline hover:text-accent" href="https://kcza.net/emblem/introduction.html">Docs</a>
+	<div class="ml-auto h-full flex"><div><button class="h-full w-10 ml-auto bg-transparent b-0 text-inherit hover:bg-bg-muted text-6"><span class="i-ph-list" slot="button"></span></button>
+	</div>
+
+</div></nav>
+	<div class="flex min-h-0 h-full"><div class="monaco-container flex-1 overflow-hidden"></div>
 		<article class="flex-1 overflow-auto markdown-body p-3" id="output"><!-- HTML_TAG_START --><!-- HTML_TAG_END --></article>
 		</div></div>
 
@@ -60,8 +62,8 @@
 			
 			<script>
 				{
-					__sveltekit_y7aym0 = {
-						env: {},
+					__sveltekit_wxcqt7 = {
+						env: {"PUBLIC_EMBLEM_CORE_URL":"https://github.com/TheSignPainter98/emblem#26f2ee9a278f5d1188bc761138ce86a6ac7108c6"},
 						assets: new URL(".", location.href).pathname.replace(/^\/$/, ''),
 						element: document.currentScript.parentElement
 					};
@@ -69,10 +71,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("./_app/immutable/entry/start.9fb7fc28.js"),
-						import("./_app/immutable/entry/app.901c7b8f.js")
+						import("./_app/immutable/entry/start.e8a62388.js"),
+						import("./_app/immutable/entry/app.d195460e.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_y7aym0.element, {
+						kit.start(app, __sveltekit_wxcqt7.element, {
 							node_ids: [0, 2],
 							data,
 							form: null,
