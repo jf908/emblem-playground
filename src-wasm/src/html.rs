@@ -71,7 +71,7 @@ impl HtmlBuilder {
                 self.content.push_str(">");
             }
             Content::Word { word, .. } => {
-                self.content.push_str(word.as_str());
+                html_escape::encode_safe_to_string(word.as_str(), &mut self.content);
             }
             Content::Whitespace { whitespace, .. } => {
                 self.content.push_str(whitespace);
@@ -98,6 +98,17 @@ impl HtmlBuilder {
                     }
                     self.content.push_str("</code>");
                 }
+                Sugar::Heading { level, arg, .. } => {
+                    self.content.push_str("<h");
+                    self.content.push_str(&level.to_string());
+                    self.content.push_str(">");
+                    for c in arg {
+                        self.build(c);
+                    }
+                    self.content.push_str("</h");
+                    self.content.push_str(&level.to_string());
+                    self.content.push_str(">");
+                }
                 _ => {}
                 // Sugar::Smallcaps { arg, loc } => todo!(),
                 // Sugar::AlternateFace { arg, loc } => todo!(),
@@ -107,8 +118,10 @@ impl HtmlBuilder {
                 Dash::En => "–",
                 Dash::Em => "—",
             }),
+            Content::Verbatim { verbatim, .. } => {
+                html_escape::encode_safe_to_string(verbatim, &mut self.content);
+            }
             _ => {} // Content::Glue { glue, loc } => {}
-                    // Content::Verbatim { verbatim, loc } => {}
                     // Content::Comment { comment, loc } => {}
                     // Content::MultiLineComment { content, loc } => {}
         }
