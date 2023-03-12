@@ -6,10 +6,13 @@
 	import { onMount } from 'svelte';
 	import { useMediaQuery } from '../store';
 	import Navbar from '../components/Navbar.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 
 	let loaded = false;
 
-	let input = '';
+	let input = data.samples[Math.floor(Math.random() * data.samples.length)];
 	let output = '';
 	let debug = '';
 	let showDebug = false;
@@ -19,7 +22,7 @@
 	const dark = useMediaQuery('(prefers-color-scheme: dark)');
 	$: theme = $dark ? 'vs-dark' : 'vs';
 
-	function onUpdate(input: string) {
+	function onUpdate(loaded: boolean, input: string) {
 		if (!loaded) return;
 		let out;
 		try {
@@ -43,7 +46,7 @@
 		output = result;
 		debug = d;
 	}
-	$: onUpdate(input);
+	$: onUpdate(loaded, input);
 
 	onMount(() => {
 		init().then(() => {
