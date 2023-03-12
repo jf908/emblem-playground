@@ -20,8 +20,8 @@ impl HtmlBuilder {
                 ParPart::Line(cs) => {
                     for c in cs {
                         self.build(&c);
-                        self.content.push_str("\n");
                     }
+                    self.content.push_str("\n");
                 }
                 ParPart::Command(c) => {
                     self.build(&c);
