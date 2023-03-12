@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 	import type monaco from 'monaco-editor';
+	import { conf, language } from '../lib/emblem';
 
 	export let value: string;
 	export let theme: string;
@@ -53,10 +54,15 @@
 			}
 		};
 
+		monaco.languages.register({ id: 'emblem' });
+		monaco.languages.setLanguageConfiguration('emblem', conf);
+		monaco.languages.setMonarchTokensProvider('emblem', language);
+
 		editor = monaco.editor.create(container, {
 			automaticLayout: true,
 			theme,
-			value
+			value,
+			language: 'emblem'
 		});
 
 		const listener = editor.getModel()?.onDidChangeContent(() => {
