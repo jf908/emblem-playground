@@ -60,6 +60,7 @@
 
 		editor = monaco.editor.create(container, {
 			automaticLayout: true,
+			fontFamily: '"JetBrains Mono", monospace',
 			theme,
 			value,
 			language: 'emblem'
