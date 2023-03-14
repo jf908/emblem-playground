@@ -44,6 +44,12 @@
 		);
 	}
 
+	function reloadFont() {
+		if (monaco) {
+			monaco.editor.remeasureFonts();
+		}
+	}
+
 	onMount(async () => {
 		monaco = await import('monaco-editor');
 
@@ -69,6 +75,8 @@
 		const listener = editor.getModel()?.onDidChangeContent(() => {
 			value = editor.getValue();
 		});
+
+		document.fonts.ready.then(reloadFont);
 
 		return () => {
 			listener?.dispose();
