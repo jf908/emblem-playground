@@ -1,6 +1,6 @@
 # Welcome to Emblem!
 
-You have chosen, or been chosen to relocate to one of our finest remaining typesetters.
+{{sample}}
 
 To make text _italic_ use underscores.
 To make text **bold** use double asterisks.

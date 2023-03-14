@@ -6,9 +6,14 @@ const samplesPath = 'src/samples';
 
 export const load = (async () => {
 	const fileNames = await fs.readdir(samplesPath);
+
+	const template = fs.readFile(path.join(samplesPath, 'template.em'), 'utf-8');
+
 	const fileContents = await Promise.all(
-		fileNames.map((file) => fs.readFile(path.join(samplesPath, file), 'utf-8'))
+		fileNames
+			.filter((file) => file !== 'template.em')
+			.map((file) => fs.readFile(path.join(samplesPath, file), 'utf-8'))
 	);
 
-	return { samples: fileContents };
+	return { template, samples: fileContents };
 }) satisfies PageServerLoad;

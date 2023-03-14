@@ -12,7 +12,10 @@
 
 	let loaded = false;
 
-	let input = data.samples[Math.floor(Math.random() * data.samples.length)];
+	let input = data.template.replace(
+		'{{sample}}',
+		data.samples[Math.floor(Math.random() * data.samples.length)]
+	);
 	let output = '';
 	let debug = '';
 	let showDebug = false;
