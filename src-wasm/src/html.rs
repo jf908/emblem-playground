@@ -20,8 +20,8 @@ impl HtmlBuilder {
                 if let Some(c) = contents.iter().next() {
                     self.build(c);
                     for window in contents.windows(2) {
-                        if !matches!(&window[0], DocElem::Glue { .. })
-                            && !matches!(&window[1], DocElem::Glue { .. })
+                        if !matches!(&window[0], DocElem::Glue { .. } | DocElem::Dash { .. })
+                            && !matches!(&window[1], DocElem::Glue { .. } | DocElem::Dash { .. })
                         {
                             self.content.push_str(" ");
                         }
@@ -46,7 +46,7 @@ impl HtmlBuilder {
             } => {
                 let known_command = matches!(
                     name.as_str(),
-                    "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "ul" | "li"
+                    "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "ul" | "ol" | "li"
                 );
                 self.content.push_str("<");
                 if known_command {
@@ -58,22 +58,34 @@ impl HtmlBuilder {
                 if attrs.as_ref().map_or(true, |attrs| {
                     !attrs.args().iter().any(|arg| arg.name() == "class")
                 }) {
-                    self.content.push_str(" class=\"");
-                    self.content.push_str(name.as_str());
-                    self.content.push_str("\"");
+                    self.content.push_str(" class=");
+
+                    html_escape::encode_double_quoted_attribute_to_string(
+                        name.as_str(),
+                        &mut self.content,
+                    );
                 }
 
                 if let Some(attrs) = attrs {
                     for arg in attrs.args() {
                         self.content.push_str(" ");
 
-                        self.content.push_str(arg.name());
+                        html_escape::encode_unquoted_attribute_to_string(
+                            arg.name(),
+                            &mut self.content,
+                        );
                         if let Some(value) = arg.value() {
                             self.content.push_str("=\"");
-                            self.content.push_str(value);
+                            html_escape::encode_unquoted_attribute_to_string(
+                                value,
+                                &mut self.content,
+                            );
                             if arg.name() == "class" {
                                 self.content.push_str(" ");
-                                self.content.push_str(name.as_str());
+                                html_escape::encode_unquoted_attribute_to_string(
+                                    name.as_str(),
+                                    &mut self.content,
+                                );
                             }
                             self.content.push_str("\"");
                         }

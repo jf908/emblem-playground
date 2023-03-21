@@ -22,9 +22,14 @@
 				color: black;
 			}
 			@media (prefers-color-scheme: dark) {
-				body {
+				body,
+				iframe {
 					background: black;
 					color: white;
+					color-scheme: dark;
+				}
+				.markdown-body pre {
+					background: #161b22;
 				}
 			}
 		</style>

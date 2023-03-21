@@ -1,7 +1,7 @@
 <script lang="ts">
 	import 'uno.css';
-	import 'github-markdown-css';
-	import '../emblem.css';
+	import baseCss from 'github-markdown-css/github-markdown.css?inline';
+	import emblemCss from '../emblem.css?inline';
 	import Editor, { type EditorError } from '../components/Editor.svelte';
 	import init, { build, EmblemError } from '../../src-wasm/pkg';
 	import { onMount } from 'svelte';
@@ -22,6 +22,7 @@
 	let showDebug = false;
 	let theme = 'vs-dark';
 	let errors: EditorError[] = [];
+	let iframe: HTMLIFrameElement | undefined;
 
 	const dark = useMediaQuery('(prefers-color-scheme: dark)');
 	$: theme = $dark ? 'vs-dark' : 'vs';
@@ -52,6 +53,21 @@
 	}
 	$: onUpdate(loaded, input);
 
+	$: srcdoc = `
+<html>
+<head>
+	<style>
+		* { box-sizing: border-box; }
+		body { margin: 0; }
+		.markdown-body { min-height: 100vh; padding: 1rem; }
+	</style>
+	<style>${baseCss}</style>
+	<style>${emblemCss}</style>
+</head>
+<body><article class="markdown-body">${output}</article></body>
+</html>
+		`;
+
 	onMount(() => {
 		init().then(() => {
 			loaded = true;
@@ -67,20 +83,18 @@
 	<Navbar bind:showDebug />
 	<div class="flex min-h-0 h-full">
 		<Editor class="flex-1 overflow-hidden" bind:value={input} {theme} {errors} />
-		<article class="flex-1 overflow-auto markdown-body p-3" id="output">
-			{@html output}
-		</article>
+		<iframe title="Output" class="flex-1 b-0" {srcdoc} />
 		{#if showDebug}
 			<article class="flex-1 overflow-auto markdown-body">
-				<pre class="min-h-100%" id="debug">{debug}</pre>
+				<pre class="min-h-100% m-0 p-3" id="debug">{debug}</pre>
 			</article>
 		{/if}
 	</div>
 </div>
 
 <style>
-	/* This is hack to override uno.css's .h1 */
-	:global(.h1) {
-		height: auto;
+	#debug {
+		font-size: 14px;
+		font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
 	}
 </style>
