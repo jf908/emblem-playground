@@ -1,6 +1,7 @@
 <script lang="ts">
 	import 'uno.css';
 	import 'github-markdown-css';
+	import '../emblem.css';
 	import Editor, { type EditorError } from '../components/Editor.svelte';
 	import init, { build, EmblemError } from '../../src-wasm/pkg';
 	import { onMount } from 'svelte';
@@ -76,3 +77,10 @@
 		{/if}
 	</div>
 </div>
+
+<style>
+	/* This is hack to override uno.css's .h1 */
+	:global(.h1) {
+		height: auto;
+	}
+</style>

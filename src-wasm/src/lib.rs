@@ -1,6 +1,7 @@
 use crate::html::HtmlBuilder;
 use emblem_core::log::messages::Message;
 use emblem_core::parser;
+use emblem_core::Doc;
 use wasm_bindgen::prelude::*;
 
 mod html;
@@ -15,14 +16,14 @@ pub struct EmblemError {
 pub fn build(data: String) -> Result<Box<[JsValue]>, EmblemError> {
     match parser::parse("main.em", &data) {
         Ok(d) => {
+            let doc: Doc = d.into();
+
             let mut builder = HtmlBuilder::new();
-            for p in d.pars.iter() {
-                builder.build_parpart(p);
-            }
+            builder.build(&doc);
 
             Ok(vec![
                 JsValue::from_str(&builder.complete()),
-                JsValue::from_str(&format!("{:#?}", d)),
+                JsValue::from_str(&format!("{:#?}", doc)),
             ]
             .into_boxed_slice())
         }

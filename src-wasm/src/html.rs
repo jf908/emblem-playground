@@ -1,6 +1,6 @@
-use emblem_core::ast::{
-    parsed::{Content, Sugar},
-    Dash, Par, ParPart,
+use emblem_core::{
+    ast::{Dash, Glue},
+    DocElem,
 };
 
 pub struct HtmlBuilder {
@@ -14,116 +14,86 @@ impl HtmlBuilder {
         }
     }
 
-    pub fn build_parpart(&mut self, par: &Par<ParPart<Content>>) {
-        for y in par.parts.iter() {
-            match y {
-                ParPart::Line(cs) => {
-                    for c in cs {
-                        self.build(&c);
-                    }
-                    self.content.push_str("\n");
-                }
-                ParPart::Command(c) => {
-                    self.build(&c);
-                }
-            }
-        }
-    }
-
-    pub fn build(&mut self, content: &Content) {
+    pub fn build(&mut self, content: &DocElem) {
         match content {
-            Content::Command {
-                name,
-                // pluses,
-                attrs,
-                inline_args,
-                remainder_arg,
-                trailer_args,
-                ..
-            } => {
-                self.content.push_str("<");
-                self.content.push_str(name.as_str());
-                if let Some(attrs) = attrs {
-                    for arg in attrs.args() {
-                        self.content.push_str(" ");
-                        self.content.push_str(arg.name());
-                        if let Some(value) = arg.value() {
-                            self.content.push_str("=\"");
-                            self.content.push_str(value);
-                            self.content.push_str("\"");
+            DocElem::Content(contents) => {
+                if let Some(c) = contents.iter().next() {
+                    self.build(c);
+                    for window in contents.windows(2) {
+                        if !matches!(&window[0], DocElem::Glue { .. })
+                            && !matches!(&window[1], DocElem::Glue { .. })
+                        {
+                            self.content.push_str(" ");
                         }
+                        self.build(&window[1]);
                     }
                 }
-                self.content.push_str(">");
-                for arg in inline_args.iter().flatten() {
-                    self.build(arg);
-                }
-                if let Some(arg) = remainder_arg {
-                    for a in arg {
-                        self.build(a);
-                    }
-                }
-                for arg in trailer_args.iter().flatten() {
-                    self.build_parpart(arg);
-                }
-                self.content.push_str("</");
-                self.content.push_str(name.as_str());
-                self.content.push_str(">");
             }
-            Content::Word { word, .. } => {
+            DocElem::Word { word, .. } => {
                 html_escape::encode_safe_to_string(word.as_str(), &mut self.content);
             }
-            Content::Whitespace { whitespace, .. } => {
-                self.content.push_str(whitespace);
-            }
-            Content::Sugar(sugar) => match sugar {
-                Sugar::Italic { arg, .. } => {
-                    self.content.push_str("<i>");
-                    for c in arg {
-                        self.build(c);
-                    }
-                    self.content.push_str("</i>");
-                }
-                Sugar::Bold { arg, .. } => {
-                    self.content.push_str("<b>");
-                    for c in arg {
-                        self.build(c);
-                    }
-                    self.content.push_str("</b>");
-                }
-                Sugar::Monospace { arg, .. } => {
-                    self.content.push_str("<code>");
-                    for c in arg {
-                        self.build(c);
-                    }
-                    self.content.push_str("</code>");
-                }
-                Sugar::Heading { level, arg, .. } => {
-                    self.content.push_str("<h");
-                    self.content.push_str(&level.to_string());
-                    self.content.push_str(">");
-                    for c in arg {
-                        self.build(c);
-                    }
-                    self.content.push_str("</h");
-                    self.content.push_str(&level.to_string());
-                    self.content.push_str(">");
-                }
-                _ => {}
-                // Sugar::Smallcaps { arg, loc } => todo!(),
-                // Sugar::AlternateFace { arg, loc } => todo!(),
-            },
-            Content::Dash { dash, .. } => self.content.push_str(match dash {
+            DocElem::Dash { dash, .. } => self.content.push_str(match dash {
                 Dash::Hyphen => "-",
                 Dash::En => "–",
                 Dash::Em => "—",
             }),
-            Content::Verbatim { verbatim, .. } => {
-                html_escape::encode_safe_to_string(verbatim, &mut self.content);
+            DocElem::Glue { glue, .. } => match glue {
+                Glue::Tight => {}
+                Glue::Nbsp => self.content.push_str("&nbsp;"),
+            },
+            DocElem::Command {
+                name, attrs, args, ..
+            } => {
+                let known_command = matches!(
+                    name.as_str(),
+                    "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "ul" | "li"
+                );
+                self.content.push_str("<");
+                if known_command {
+                    self.content.push_str(name.as_str());
+                } else {
+                    self.content.push_str("span");
+                }
+
+                if attrs.as_ref().map_or(true, |attrs| {
+                    !attrs.args().iter().any(|arg| arg.name() == "class")
+                }) {
+                    self.content.push_str(" class=\"");
+                    self.content.push_str(name.as_str());
+                    self.content.push_str("\"");
+                }
+
+                if let Some(attrs) = attrs {
+                    for arg in attrs.args() {
+                        self.content.push_str(" ");
+
+                        self.content.push_str(arg.name());
+                        if let Some(value) = arg.value() {
+                            self.content.push_str("=\"");
+                            self.content.push_str(value);
+                            if arg.name() == "class" {
+                                self.content.push_str(" ");
+                                self.content.push_str(name.as_str());
+                            }
+                            self.content.push_str("\"");
+                        }
+                    }
+                }
+
+                self.content.push_str(">");
+
+                for arg in args.iter() {
+                    self.build(arg);
+                }
+
+                self.content.push_str("</");
+                if known_command {
+                    self.content.push_str(name.as_str());
+                } else {
+                    self.content.push_str("span");
+                }
+                self.content.push_str(">");
             }
-            _ => {} // Content::Glue { glue, loc } => {}
-                    // Content::Comment { comment, loc } => {}
-                    // Content::MultiLineComment { content, loc } => {}
         }
     }
 
