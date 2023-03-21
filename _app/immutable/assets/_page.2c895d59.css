@@ -1100,3 +1100,49 @@
 .markdown-body ::-webkit-calendar-picker-indicator {
   filter: invert(50%);
 }
+.it {
+	font-style: italic;
+}
+
+.bf {
+	font-weight: bold;
+}
+
+.sc {
+	font-variant: small-caps;
+}
+
+.tt {
+	font-family: monospace;
+}
+
+.af {
+	font-family: serif;
+}
+
+article,
+.df {
+	font-family: sans-serif;
+}
+
+.flush-left {
+	text-align: left;
+	display: block;
+}
+
+.flush-right {
+	text-align: right;
+	display: block;
+}
+
+.justify {
+	text-align: justify;
+	display: block;
+}
+
+.center,
+.centre {
+	text-align: center;
+	display: block;
+}
+.h1{height:auto}
