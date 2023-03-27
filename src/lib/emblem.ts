@@ -14,7 +14,7 @@ export const conf: languages.LanguageConfiguration = {
 		{ open: '[', close: ']' }
 	],
 	surroundingPairs: [
-		{ open: '(', close: ')' },
+		{ open: '{', close: '}' },
 		{ open: '[', close: ']' },
 		{ open: '`', close: '`' }
 	],
@@ -46,12 +46,18 @@ export const language = <languages.IMonarchLanguage>{
 
 	tokenizer: {
 		root: [
-			// headers (with #)
-			[/^(\s{0,3})(#+)((?:[^\\#]|@escapes)+)((?:#+)?)/, ['white', 'keyword', 'keyword', 'keyword']],
-
 			// comments
 			[/\/\*/, 'comment', '@comment'],
 			[/\/\/.*$/, 'comment'],
+
+			// headers (with #)
+			[/^(\s{0,3})(#+)((?:[^\\#]|@escapes)+)((?:#+)?)/, ['white', 'keyword', 'keyword', 'keyword']],
+
+			// delimiter
+			[/(:)\n/, 'delimiter'],
+
+			// tag
+			[/\.[^ \t{}\[\]\r\n:+]+\+*/, 'tag'],
 
 			// markup within lines
 			{ include: '@linecontent' }

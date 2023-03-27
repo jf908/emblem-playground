@@ -1,3 +1,7 @@
+.markdown-body {
+	font-family: 'Jost', sans-serif;
+}
+
 .it {
 	font-style: italic;
 }
@@ -11,11 +15,12 @@
 }
 
 .tt {
-	font-family: monospace;
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.83rem;
 }
 
 .af {
-	font-family: serif;
+	font-family: 'Libre Bodoni', serif;
 }
 
 article,
