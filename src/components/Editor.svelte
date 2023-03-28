@@ -69,7 +69,8 @@
 			fontFamily: 'JetBrains Mono',
 			theme,
 			value,
-			language: 'emblem'
+			language: 'emblem',
+			wordWrap: 'on'
 		});
 
 		const listener = editor.getModel()?.onDidChangeContent(() => {
