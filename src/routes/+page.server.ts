@@ -12,7 +12,7 @@ export const load = (async () => {
 	const fileContents = await Promise.all(
 		fileNames
 			.filter((file) => file !== 'template.em')
-			.map((file) => fs.readFile(path.join(samplesPath, file), 'utf-8'))
+			.map((file) => fs.readFile(path.join(samplesPath, file), 'utf-8').then((src) => src.trim()))
 	);
 
 	return { template, samples: fileContents };
